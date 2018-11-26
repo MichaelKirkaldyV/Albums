@@ -8,5 +8,6 @@ urlpatterns = [
   url(r'^login_process$', views.login_process),
   url(r'^album$', views.add_album),
   url(r'^register$', views.register_page),
-  url(r'^add_photo$', views.add_photo)
+  url(r'^add_photo$', views.add_photo),
+  url(r'^createAlbum$', views.createAlbum)
 ]

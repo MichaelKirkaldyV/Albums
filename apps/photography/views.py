@@ -6,14 +6,7 @@ from django.contrib import messages
 import bcrypt
 from Tkinter import *
 import tkMessageBox
-
-#Tkinter uses a GUI to take a input from the client via a message box and jQuery on click()
-root = Tk()
-
-def create_album():
-	message = tkMessageBox.showinfo("Create an Album", "Enter an album name.")
-
-root.mainloop()
+import tkSimpleDialog
 
 
 def home(request):
@@ -60,6 +53,16 @@ def login_process(request):
 
 def dashboard(request):
 	return render(request, "photography/dashboard.html")
+
+#Tkinter uses a GUI to take a input from the client via dialog box.
+def createAlbum(request):
+	window = Tk()
+	answer = tkSimpleDialog.askstring("Input", "Please enter an album name.")
+	if answer: 
+		print "Album created", answer
+		Album.objects.create(name=answer)
+	window.mainloop()
+	return redirect('/dashboard')
 
 def add_album(request):
 	errors = Album.objects.validate_album(request.POST)
