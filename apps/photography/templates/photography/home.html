@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'photography/css/home.css' %}">
+</head>
+<body>
+	<div class="container">
+		<nav>
+			<div class="header_left">
+				<h1 class="title">Photobook</h1>
+			</div>
+			<div class="header_right">
+				<form action="/register_process" method="post">
+					{% csrf_token %}
+					<div class="username">
+						<label>username</label>
+						<input type="text" name="username">						
+					</div>
+					<div class="password">
+						<label>password</label>
+						<input type="password" name="password" class="password_input">
+					</div>
+					<input type="submit" name="submit" value="register" class="register_button">
+				</form>
+				<p>Not signed up?<a href="/register" class="register_link">register here</a></p>
+			</div>
+		</nav>
+		<div class="body">
+			<h1 class="headliner">A place to store life's</h1>
+			<h1 class="headliner2">happiest moments</h1>
+			<div class="photos">
+				<div class="row1"><img src="static/photography/images/img1.png" class="img1"></div>
+				<div class="row1"><img src="static/photography/images/img2.png" class="img2"></div>
+				<div class="row1"><img src="static/photography/images/img3.png" class="img3"></div>
+				<div class="row1"><img src="static/photography/images/img4.png" class="img4"></div>
+				<div class="row2"><img src="static/photography/images/img5.png" class="img5"></div>
+				<div class="row2"><img src="static/photography/images/img6.png" class="img6"></div>
+				<div class="row2"><img src="static/photography/images/img7.png" class="img7"></div>
+				<div class="row2"><img src="static/photography/images/img8.png" class="img8"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

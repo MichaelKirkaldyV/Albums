@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Register</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'photography/css/register.css' %}">
+</head>
+<body>
+	<div class="container">
+		<nav>
+			<h1>Photobook</h1>			
+		</nav>
+		<div class="body">
+			<div class="message">
+				<h1>Register Here!</h1>
+				<h1>Join and stay organized.</h1>				
+			</div>
+			<div class="register_form">
+				<form action="/register_process" method="post">
+					{% csrf_token %}
+					<div class="name">
+						<label>First Name</label>
+						<input type="text" name="firstname">
+						<label>Last Name</label>
+						<input type="text" name="lastname">
+					</div>
+					<div class="username">
+						<label>Username</label>
+						<input type="text" name="username">
+					</div>
+					<div class="password">
+						<label>Password</label>
+						<input type="password" name="password">
+						<label>Confirm Password</label>
+						<input type="password" name="cnfrm_password">
+					</div>
+					{% if messages %}
+						<ul class="messages">
+	    				{% for message in messages %}
+	    				<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+	    				{% endfor %}
+						</ul>
+					{% endif %}
+					<input type="submit" name="submit" value="Register" class="register_button">
+				</form>				
+			</div>			
+		</div>		
+	</div>
+
+</body>
+</html>
