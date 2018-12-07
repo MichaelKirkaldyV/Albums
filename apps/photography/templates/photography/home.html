@@ -12,7 +12,7 @@
 				<h1 class="title">Photobook</h1>
 			</div>
 			<div class="header_right">
-				<form action="/register_process" method="post">
+				<form action="/login_process" method="post">
 					{% csrf_token %}
 					<div class="username">
 						<label>username</label>
@@ -22,9 +22,17 @@
 						<label>password</label>
 						<input type="password" name="password" class="password_input">
 					</div>
-					<input type="submit" name="submit" value="register" class="register_button">
+					<input type="submit" name="submit" value="Login" class="register_button">
 				</form>
 				<p>Not signed up?<a href="/register" class="register_link">register here</a></p>
+				{% if messages %}
+					<ul class="messages">
+	    			{% for message in messages %}
+	    				<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+	    				<br>	
+	   				{% endfor %}
+					</ul>
+				{% endif %}
 			</div>
 		</nav>
 		<div class="body">

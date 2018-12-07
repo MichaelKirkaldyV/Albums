@@ -3,7 +3,7 @@
 <head>
 	<title>Login</title>
 	{% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'photography/css/login.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'photography/css/dashboard.css' %}">
 </head>
 <body>
 	<div class="container">
@@ -22,6 +22,19 @@
 				</div>
 			</form>
 		</nav>
+		<div class="sidebar">
+			
+		</div>
+		<div class="albums">
+			<div class="album">
+				{% for album in albums %}
+					<a href="/album_page/{{album.id}}"><img src="static/photography/images/blue_folder.ico" class="folder_img"></a>
+					<h1>{{album.name}}</h1>
+					<p>{{album.created_at}}</p>
+					<p>{{album.user.username}}</p>
+				{% endfor %}
+			</div>
+		</div>
 	</div>
 </body>
 </html>

@@ -27,6 +27,20 @@ class UserManager(models.Manager):
 
 		return errors
 
+	def validate_user2(request, postData):
+		errors = {}
+
+		if len(postData['username']) < 3 or len(postData['username']) == 0:
+			errors['username'] = "Username must be longer than 3 characters, Username cannot be blank"
+
+		if len(postData['password']) < 8:
+			errors['password'] = "Password must be longer than 8 characters"
+
+			if len(postData['password']) == 0: 
+				errors['password'] = "Password field cannot be blank"
+
+		return errors	
+
 class AlbumManager(models.Manager):
 	def validate_album(request, postData):
 		errors = {}
@@ -51,6 +65,7 @@ class Album(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 	user = models.ForeignKey(User, related_name="created_albums")
+	objects = AlbumManager()
 
 class Photo(models.Model):
 	file = models.FileField()

@@ -30,10 +30,21 @@ def register_process(request):
 		password = request.POST['password']
 		hashed_pw = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 		User.objects.create(username=username, password=hashed_pw)
+		user = User.objects.get(username=username)
+		request.session['id'] = user.id
 		print "User created!"
-		return redirect('/login')
+		print "Username", username
+		print "password", password
+		return redirect('/')
 
 def login_process(request):
+	errors = User.objects.validate_user2(request.POST)
+
+	if len(errors):
+		for tag, error in errors.iteritems():
+			messages.error(request, error)
+		return redirect('/home')
+
 	username = request.POST['username']
 	password = request.POST['password']
 
@@ -43,41 +54,37 @@ def login_process(request):
 		this_password = bcrypt.checkpw(password.encode(), user[0].password.encode())
 		if this_password:
 			request.session['id'] = user[0].id
-			return redirect('/login')
+			print "Welcome"
+			return redirect('/dashboard')
 		else:
-			message.error(request, "Incorrect username/password combination")
+			messages.error(request, "Incorrect username/password combination")
+			print "Error"
 			return redirect('/')
 	else:
-		message.error(request, "User does not exist")
+		messages.error(request, "User does not exist")
+		print "Error"
 		return redirect('/')
 
 def dashboard(request):
-	return render(request, "photography/dashboard.html")
+	context = {
+		"user": User.objects.get(id=request.session['id']),
+		"albums": Album.objects.filter(user=request.session['id'])
+	}
+	return render(request, "photography/dashboard.html", context)
 
 #Tkinter uses a GUI to take a input from the client via dialog box.
 def createAlbum(request):
+	user = User.objects.get(id=request.session['id'])
 	window = Tk()
 	answer = tkSimpleDialog.askstring("Input", "Please enter an album name.")
 	if answer: 
+		Album.objects.create(name=answer, user=user)
 		print "Album created", answer
-		Album.objects.create(name=answer)
 	window.mainloop()
 	return redirect('/dashboard')
 
-def add_album(request):
-	errors = Album.objects.validate_album(request.POST)
-
-	if len(errors):
-		for tag, error in errors.iteritems():
-			messages.error(request, error)
-		return redirect('/login')
-
-	else:
-		alert("Please enter a name!")
-		name = request.POST['name']
-		Album.objects.create(name=name)
-		print "Album created"
-		return redirect('/login')
-
 def add_photo(request):
+	file = request.POST['photo']
+	#album = Album.objects.get(id=)
+	#photo = Photo.objects.create(file=file, album=)
 	return
