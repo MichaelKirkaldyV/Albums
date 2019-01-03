@@ -68,7 +68,7 @@ class Album(models.Model):
 	objects = AlbumManager()
 
 class Photo(models.Model):
-	file = models.FileField()
+	image = models.ImageField(upload_to="user_images/%Y/%m/%d")
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 	album = models.ForeignKey(Album, related_name="added_photo")

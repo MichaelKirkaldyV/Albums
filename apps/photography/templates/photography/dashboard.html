@@ -29,7 +29,7 @@
 			<div class="album">
 				{% for album in albums %}
 					<a href="/album_page/{{album.id}}"><img src="static/photography/images/blue_folder.ico" class="folder_img"></a>
-					<h1>{{album.name}}</h1>
+					<a href="/album_page/{{album.id}}"><h1>{{album.name}}</h1></a>
 					<p>{{album.created_at}}</p>
 					<p>{{album.user.username}}</p>
 				{% endfor %}

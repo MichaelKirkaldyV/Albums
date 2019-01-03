@@ -78,13 +78,25 @@ def createAlbum(request):
 	window = Tk()
 	answer = tkSimpleDialog.askstring("Input", "Please enter an album name.")
 	if answer: 
-		Album.objects.create(name=answer, user=user)
+		album = Album.objects.create(name=answer, user=user)
+		request.session['album_id'] = album.id
+		print request.session['album_id']
 		print "Album created", answer
 	window.mainloop()
 	return redirect('/dashboard')
 
+def album_page(request, id):
+	album = Album.objects.get(id=id)
+	context = {
+		"photos": Photo.objects.filter(album=album)
+	}
+	return render(request, "photography/album.html", context)
+
+
 def add_photo(request):
-	file = request.POST['photo']
-	#album = Album.objects.get(id=)
-	#photo = Photo.objects.create(file=file, album=)
-	return
+	_photo = request.POST['photo']
+	album = Album.objects.get(id=request.session['album_id'])
+	photo = Photo.objects.create(image=_photo, album=album)
+	return redirect('/dashboard')
+
+

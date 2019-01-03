@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Albums</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'photography/css/album.css' %}">
+</head>
+<body>
+	<div class="container">
+		<nav>
+			<h1>Photobomb</h1>
+			<form action="/add_photo" method="post">
+				{% csrf_token %}
+				<div class="input_file">
+					<input type="file" name="photo" value="Upload">	
+				</div>
+				<div class="input">
+					<input  type="submit" name="submit" value="Upload">
+				</div>
+			</form>
+		</nav>
+		{% for photo in photos %}
+		<img src="{{photo.image.url}}">
+		{% endfor %}
+	</div>
+
+</body>
+</html>
