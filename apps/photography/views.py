@@ -97,6 +97,7 @@ def add_photo(request):
 	_photo = request.POST['photo']
 	album = Album.objects.get(id=request.session['album_id'])
 	photo = Photo.objects.create(image=_photo, album=album)
+	print "Photo added"
 	return redirect('/dashboard')
 
 
