@@ -8,8 +8,8 @@
 <body>
 	<div class="container">
 		<nav>
-			<h1>Photobomb</h1>
-			<form action="/add_photo" method="post">
+			<a href="/dashboard"><h1>Photobomb</h1></a>
+			<form action="/add_photo" method="post" enctype="multipart/form-data">
 				{% csrf_token %}
 				<div class="input_file">
 					<input type="file" name="photo" value="Upload">	
