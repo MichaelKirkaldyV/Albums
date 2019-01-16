@@ -31,3 +31,31 @@ form {
 	margin-left: 975px;
 	vertical-align: top;
 }
+
+.image {
+	height: 300px;
+	width: 300px;
+}
+
+.sidebar {
+	background-color: red;
+	height: 1600px;
+	width: 200px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.body {
+	background-color: blue;
+	width: 1140px;
+	height: 1600px;
+	display: inline-block;
+}
+
+.back_button {
+	height: 75px;
+	width: 75px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	margin-left: 20px;
+}

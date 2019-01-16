@@ -19,10 +19,14 @@
 				</div>
 			</form>
 		</nav>
-		{% for photo in photos %}
-		<img src="{{photo.image.url}}">
-		{% endfor %}
+		<div class="sidebar">
+			<img src="/static/photography/images/back_button.png" class="back_button">
+		</div>
+		<div class="body">
+			{% for photo in photos %}
+			<a href="/details/{{photo.id}}"><img src="{{photo.image.url}}" class=image></a>
+			{% endfor %}
+		</div>
 	</div>
-
 </body>
 </html>

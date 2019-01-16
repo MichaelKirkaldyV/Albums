@@ -9,5 +9,7 @@ urlpatterns = [
   url(r'^register$', views.register_page),
   url(r'^add_photo$', views.add_photo),
   url(r'^createAlbum$', views.createAlbum),
-  url(r'^album_page/(?P<id>\d+)$', views.album_page)
+  url(r'^album_page/(?P<id>\d+)$', views.album_page),
+  url(r'^delete_album/(?P<id>\d+)$', views.delete_album),
+  url(r'^details/(?P<id>\d+)$', views.details)
 ]

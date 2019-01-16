@@ -72,6 +72,10 @@ def dashboard(request):
 	}
 	return render(request, "photography/dashboard.html", context)
 
+def delete_album(request, id):
+	Album.objects.filter(id=id).delete()
+	return redirect('/dashboard')
+
 #Tkinter uses a GUI to take a input from the client via dialog box.
 def createAlbum(request):
 	user = User.objects.get(id=request.session['id'])
@@ -94,10 +98,22 @@ def album_page(request, id):
 
 
 def add_photo(request):
-	_photo = request.FILES['photo']
-	album = Album.objects.get(id=request.session['album_id'])
-	photo = Photo.objects.create(image=_photo, album=album)
-	print "Photo added"
-	return redirect('/dashboard')
+	if request.FILES['photo']:
+		 _photo = request.FILES['photo']
+		 album = Album.objects.get(id=request.session['album_id'])
+		 photo = Photo.objects.create(image=_photo, album=album)
+		 print "Photo added"
+		 return redirect('/dashboard') 
+	else:
+	   misc = request.FILES['misc_photo']
+	   misc_photo = Photo.objects.create(misc_image=misc)
+	   print "misc photo added."
+	   return redirect('/dashboard')
+
+def details(request, id):
+	context = {
+		"photo": Photo.objects.get(id=id)
+	}
+	return render(request, "photography/photoDetail.html", context)
 
 

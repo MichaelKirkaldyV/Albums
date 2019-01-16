@@ -9,32 +9,43 @@
 	<div class="container">
 		<nav>
 			<h1>Photobomb</h1>
-			<div class="link">
-				<a href="createAlbum" class="create">Create</a>
-			</div>
-			<form action="/add_photo" method="post">
-				{% csrf_token %}
-				<div class="input">
-					<input type="file" name="photo" value="Upload">	
-				</div>
-				<div class="input">
-					<input  type="submit" name="submit" value="Upload">
-				</div>
-			</form>
+			{% for album in albums %}
+			<h3>{{album.user.username}}</h3>
+			{% endfor %}
 		</nav>
 		<div class="sidebar">
-			
+				<img src="/static/photography/images/back_button2.png" class="back_button">			
 		</div>
 		<div class="albums">
-			<div class="album">
-				{% for album in albums %}
-					<a href="/album_page/{{album.id}}"><img src="static/photography/images/blue_folder.ico" class="folder_img"></a>
-					<a href="/album_page/{{album.id}}"><h1>{{album.name}}</h1></a>
-					<p>{{album.created_at}}</p>
-					<p>{{album.user.username}}</p>
-				{% endfor %}
+			<div class="sidebar2">
+				<div class="link">
+					<a href="createAlbum">New +</a>
+				</div>
+				<form action="/add_photo" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="input">
+						<input type="file" name="misc_photo" value="Upload">	
+					</div>
+					<div class="input">
+						<input  type="submit" name="submit" value="Upload">
+					</div>
+				</form>
 			</div>
+				{% for album in albums %}
+				<div class="modules">
+					<a href="/album_page/{{album.id}}"><img src="static/photography/images/blue_folder.ico" class="folder_img"></a>
+					<a href="/album_page/{{album.id}}"><h3 class=album_title>{{album.name}}</h3></a>
+					<p class="album_date">{{album.created_at}}</p>
+					<a href="/delete_album/{{album.id}}"><button class="album_button">Delete</button></a>
+				</div>					
+				{% endfor %}
+				<div class="misc_photos">
+					{% for photo in photos %}
+					<a href="/details/{{photo.id}}"><img src="{{photo.misc_image.url}}" class=image></a>
+					{% endfor %}
+				</div>
 		</div>
+		
 	</div>
 </body>
 </html>

@@ -68,6 +68,7 @@ class Album(models.Model):
 	objects = AlbumManager()
 
 class Photo(models.Model):
+	misc_image = models.ImageField(upload_to="misc", blank=True)
 	image = models.ImageField(upload_to="media", blank=True)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
