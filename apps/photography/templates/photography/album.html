@@ -23,6 +23,7 @@
 			<img src="/static/photography/images/back_button.png" class="back_button">
 		</div>
 		<div class="body">
+			<div class="sidebar2"></div>
 			{% for photo in photos %}
 			<a href="/details/{{photo.id}}"><img src="{{photo.image.url}}" class=image></a>
 			{% endfor %}

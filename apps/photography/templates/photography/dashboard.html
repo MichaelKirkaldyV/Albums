@@ -4,15 +4,19 @@
 	<title>Login</title>
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'photography/css/dashboard.css' %}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="container">
-		<nav>
+		<div class="header">
 			<h1>Photobomb</h1>
-			{% for album in albums %}
-			<h3>{{album.user.username}}</h3>
-			{% endfor %}
-		</nav>
+			{% if user %}
+			<a href="/logout/{{user.id}}"><h3>{{user.username}}</h3></a>
+			{% endif %}
+		</div>
+		{% if photo.profilepic %}
+		<div class="profile_pic"><img src="{{photo.profilepic.url}}"></div>
+		{% endif %}
 		<div class="sidebar">
 				<img src="/static/photography/images/back_button2.png" class="back_button">			
 		</div>
@@ -21,15 +25,28 @@
 				<div class="link">
 					<a href="createAlbum">New +</a>
 				</div>
-				<form action="/add_photo" method="post" enctype="multipart/form-data">
+				<form action="/add_photo_dashboard" method="post" enctype="multipart/form-data">
 					{% csrf_token %}
 					<div class="input">
-						<input type="file" name="misc_photo" value="Upload">	
+						<input type="file" name="misc_photo">	
 					</div>
 					<div class="input">
 						<input  type="submit" name="submit" value="Upload">
 					</div>
 				</form>
+				<div class="options">
+					{% if user %}
+					<ul class="parent">
+						<li>Account
+							<ul class="child">
+								<li><a href="/delete/{{user.id}}">Delete</a></li>
+								<li><a href="/logout/{{user.id}}">Logout</a></li>
+								<li><a href="/change_pic_page">Add/Change</a></li>
+							</ul>
+						</li>
+					</ul>
+					{% endif %}
+				</div>
 			</div>
 				{% for album in albums %}
 				<div class="modules">
@@ -40,12 +57,24 @@
 				</div>					
 				{% endfor %}
 				<div class="misc_photos">
-					{% for photo in photos %}
-					<a href="/details/{{photo.id}}"><img src="{{photo.misc_image.url}}" class=image></a>
-					{% endfor %}
+					{% if photo.misc_image %}
+						{% for photo in photos %}					
+						<a href="/details/{{photo.id}}"><img src="{{photo.misc_image.url}}" class=image></a>
+						{% endfor %}
+					{% else %}
+						<p>No Image Avaliable</p>
+					{% endif %}
 				</div>
-		</div>
-		
+		</div>		
 	</div>
 </body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('ul.parent > li').hover(function(){
+			$(this).find('ul.child').show(500);
+		}, function(){
+			$(this).find('ul.child').hide(500);
+		});
+	});
+</script>
 </html>

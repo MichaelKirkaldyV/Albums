@@ -38,18 +38,25 @@ form {
 }
 
 .sidebar {
-	background-color: red;
+	background-color: #f4f4f4;
 	height: 1600px;
-	width: 200px;
+	width: 95px;
 	display: inline-block;
 	vertical-align: top;
 }
 
+.sidebar2 {
+	width: 100%;
+	height: 25px;
+	background-color: #9b9b9b;
+	padding: 20px;
+}
+
 .body {
 	background-color: blue;
-	width: 1140px;
+	width: 100%;
 	height: 1600px;
-	display: inline-block;
+	display: inline;
 }
 
 .back_button {

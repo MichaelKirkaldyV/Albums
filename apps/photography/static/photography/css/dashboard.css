@@ -7,23 +7,34 @@
 	width: 100%;
 }
 
-nav {
-	width: 100%;
+div.header {
+	width: 1225px;
 	height: 35px;
 	background-color: rgba(0, 0, 0, .8);
 	padding: 20px;
+	display: inline-block;
 }
-nav h1 {
+div.header h1 {
 	color: white;
 	display: inline-block;
 	font-family: sans-serif;
+	font-size: 22px;
 }
 
-nav h3 {
+div.header h3 {
 	color: white;
 	font-family: arial;
 	display: inline-block;
 	margin-left: 1005px;
+}
+
+div.profile_pic {
+	height: 75px;
+	width: 80px;
+	background-color: red;
+	display: inline-block;
+	vertical-align: top;
+	
 }
 
 .input {
@@ -45,6 +56,7 @@ form {
 	height: 600px;
 	width: 95px;
 	display: inline-block;
+
 }
 
 .sidebar2 {
@@ -62,7 +74,6 @@ form {
 }
 
 .albums {
-	background-color: #f5f5f5;
 	width: 92%;
 	height: 600px;
 	display: inline-block;
@@ -117,7 +128,6 @@ button {
 .misc_photos {
 	width: 1140px;
 	height: 200px;
-	background-color: black;
 	margin-top: 40px;
 	width: 100%;
 }
@@ -128,4 +138,35 @@ button {
 	margin-top: 15px;
 	margin-bottom: 15px;
 	margin-left: 20px;
+}
+
+.options {
+	vertical-align: top;
+	display: inline-block;
+	margin-left: 700px;
+}
+
+ul {
+	list-style: none;
+	font-family: arial;
+	color: white;
+	font-size: 19px;
+	cursor: pointer;
+}
+ul.child {
+	display: none;
+	box-sizing: border-box;
+	background-color: red;
+	padding: 15px;
+}
+
+ul.child > li {
+	border-bottom: 2px solid white;
+	list-style: none;
+	margin-top: 10px;
+
+}
+
+.image {
+	margin: 15px;
 }

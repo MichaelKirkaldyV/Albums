@@ -68,11 +68,13 @@ class Album(models.Model):
 	objects = AlbumManager()
 
 class Photo(models.Model):
-	misc_image = models.ImageField(upload_to="misc", blank=True)
+	profilepic = models.ImageField(upload_to="profilepics", blank=True, null=True)
+	misc_image = models.ImageField(upload_to="misc", blank=True, null=True)
 	image = models.ImageField(upload_to="media", blank=True)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
-	album = models.ForeignKey(Album, related_name="added_photo")
+	album = models.ForeignKey(Album, related_name="added_photo", blank=True, null=True)
+	_user = models.ForeignKey(User, related_name="misc_images", blank=True, null=True)
 
 
 	

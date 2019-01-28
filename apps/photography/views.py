@@ -68,7 +68,8 @@ def login_process(request):
 def dashboard(request):
 	context = {
 		"user": User.objects.get(id=request.session['id']),
-		"albums": Album.objects.filter(user=request.session['id'])
+		"albums": Album.objects.filter(user=request.session['id']),
+		"photos": Photo.objects.filter(_user=request.session['id'])
 	}
 	return render(request, "photography/dashboard.html", context)
 
@@ -98,22 +99,48 @@ def album_page(request, id):
 
 
 def add_photo(request):
-	if request.FILES['photo']:
-		 _photo = request.FILES['photo']
-		 album = Album.objects.get(id=request.session['album_id'])
-		 photo = Photo.objects.create(image=_photo, album=album)
-		 print "Photo added"
-		 return redirect('/dashboard') 
-	else:
-	   misc = request.FILES['misc_photo']
-	   misc_photo = Photo.objects.create(misc_image=misc)
-	   print "misc photo added."
-	   return redirect('/dashboard')
+	 _photo = request.FILES['photo']
+	 album = Album.objects.get(id=request.session['album_id'])
+	 photo = Photo.objects.create(image=_photo, album=album)
+	 print "Photo added"
+	 return redirect('/dashboard') 
+
+def add_photo_dashboard(request):
+    misc = request.FILES['misc_photo']
+    user = User.objects.get(id=request.session['id'])
+    misc_photo = Photo.objects.create(misc_image=misc, _user=user)
+    print "misc photo added"
+    return redirect('/dashboard')
 
 def details(request, id):
 	context = {
 		"photo": Photo.objects.get(id=id)
 	}
 	return render(request, "photography/photoDetail.html", context)
+
+def delete(request, id):
+	photo = Photo.objects.get(id=id)
+	photo.delete()
+	return redirect('/dashboard')
+
+def logout(request, id):
+	request.session.clear()
+	return redirect('/home')
+
+def change_pic_page(request):
+	user = User.objects.get(id=request.session['id'])
+	photo = Photo.objects.filter(_user=request.session['id'])
+	context = {
+		"user": user
+	}
+	return render(request, "photography/changePic.html", context)
+
+def upload_pic(request, id):
+	profile_pic = request.FILES['profile_pic']
+	user = User.objects.get(id=id)
+	profile_image = Photo.objects.create(profilepic=profile_pic, _user=user)
+	return redirect('/dashboard')
+
+
 
 

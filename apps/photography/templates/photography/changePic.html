@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'photography/css/changePic.css' %}">
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<h1>Photobomb</h1>
+			{% if user %}
+			<a href="/logout/{{user.id}}"><h3>{{user.username}}</h3></a>
+			{% endif %}
+		</div>
+	<div class="profile_pic">
+		{% if user %}
+		<img src="{{user.profilepic.url}}">
+		{% endif %}
+	</div>
+	<div class="answerbox">
+		{% if user %}
+		<form action="/upload_profile_pic/{{user.id}}" method="post" enctype="multipart/form-data">
+		{% endif %}
+			{% csrf_token %}
+			<label>Please select a profile picture</label>
+			<input type="file" name="profile_pic" >
+			<input type="submit" name="submit" value="Upload">
+		</form>
+	</div>
+	</div>
+</body>
+</html>
