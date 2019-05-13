@@ -9,23 +9,24 @@
 	<div class="container">
 		<nav>
 			<a href="/dashboard"><h1>Photobomb</h1></a>
-			<form action="/add_photo" method="post" enctype="multipart/form-data">
-				{% csrf_token %}
-				<div class="input_file">
-					<input type="file" name="photo" value="Upload">	
-				</div>
-				<div class="input">
-					<input  type="submit" name="submit" value="Upload">
-				</div>
-			</form>
 		</nav>
-		<div class="sidebar">
-			<img src="/static/photography/images/back_button.png" class="back_button">
-		</div>
-		<div class="body">
-			<div class="sidebar2"></div>
-			{% for photo in photos %}
-			<a href="/details/{{photo.id}}"><img src="{{photo.image.url}}" class=image></a>
+			<div class="sidebar2">
+				<a href="/dashboard">Back</a>
+				{% if album %}
+				<form action="/add_photo/{{album.id}}" method="post" enctype="multipart/form-data">
+				{% endif %}
+					{% csrf_token %}
+					<div class="input_file">
+						<input type="file" name="photo" value="Upload">	
+					</div>
+					<div class="input">
+						<input  type="submit" name="submit" value="Upload">
+					</div>
+				</form>
+			</div>
+		<div class="main">
+			{% for photo in photos %}					
+				<a href="/details/{{photo.id}}"><img src="{{photo.image.url_200x200}}" class=image></a>
 			{% endfor %}
 		</div>
 	</div>

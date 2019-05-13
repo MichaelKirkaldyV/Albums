@@ -1,0 +1,140 @@
+
+* {
+	padding: 0;
+	margin: 0;
+}
+.container {
+	height: 840px;
+	width: 1350px;
+	background-color: white;
+}
+ 
+div.header {
+	width: 100%;
+	height: 35px;
+	background-color: rgba(0, 0, 0, .8);
+	padding: 20px;
+	display: inline-block;
+}
+
+div.header h1 {
+	color: white;
+	display: inline-block;
+	font-family: sans-serif;
+	font-size: 25px;
+}
+
+.sidebar2 {
+	width: 100%;
+	height: 17px;
+	background-color: #9b9b9b;
+	padding: 20px;
+}
+
+.back-button {
+	text-decoration: none;
+	color: white;
+	font-family: arial;
+	font-size: 20px;
+}
+
+.download-button {
+	margin-left: 1000px;
+	margin-right: 15px;
+	text-decoration: none;
+	color: white;
+	font-family: arial;
+	font-size: 20px;
+}
+
+.delete-button {
+	text-decoration: none;
+	color: white;
+	font-family: arial;
+	font-size: 20px;
+}
+
+.info-button {
+	margin-right: 15px;
+	text-decoration: none;
+	color: white;
+	font-family: arial;
+	font-size: 20px;
+	display: inline-block;
+	list-style: none;
+	cursor: pointer;
+}
+
+
+.image {
+	width: 100%;
+	height: 100%;
+}
+
+
+.div_image {
+	width: 800px;
+	height: 600px;
+	box-shadow: 0px 0px 10px 2px grey;
+	display: inline-block;
+	margin-left: 50px;
+	margin-top: 50px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.photo-details {
+	position: absolute;
+	top: 168px;
+	border: 3px solid black;
+	width: 330px;
+	height: 600px;
+	margin-left: 930px;
+	margin-top: 15px;
+}
+
+.x-button {
+	width: 35px;
+	height: 35px;
+	display: inline-block;
+	margin-left: 155px;
+	margin-top: 20px;
+	cursor: pointer;
+}
+
+.description {
+	padding: 5px;
+	margin: 30px 5px 5px 10px;
+}
+
+.submit {
+	background-color: green;
+	padding: 5px;
+	color: white;
+	font-family: arial;
+	border: none;
+}
+
+.info {
+	margin: 20px;
+	display: inline-block;
+	font-family: arial;
+	color: black;
+}
+
+.link {
+	display: inline-block;
+}
+
+.new {
+	background-color: blue;
+	height: 20px;
+	width: 20px;
+}
+
+.text {
+	height: 200px;
+	width: 270px;
+	margin: 30px;
+}

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
+from django_thumbs.db.models import ImageWithThumbsField
 
 class UserManager(models.Manager):
 	def validate_user(request, postData):
@@ -68,9 +69,8 @@ class Album(models.Model):
 	objects = AlbumManager()
 
 class Photo(models.Model):
-	profilepic = models.ImageField(upload_to="profilepics", blank=True, null=True)
-	misc_image = models.ImageField(upload_to="misc", blank=True, null=True)
-	image = models.ImageField(upload_to="media", blank=True)
+	image = ImageWithThumbsField(upload_to="media", blank=True, sizes=((125,125), (200,200)))
+	description = models.CharField(max_length=150)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 	album = models.ForeignKey(Album, related_name="added_photo", blank=True, null=True)

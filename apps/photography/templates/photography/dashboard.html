@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login</title>
+	<title>Dashboard</title>
 	{% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'photography/css/dashboard.css' %}">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -9,39 +9,26 @@
 <body>
 	<div class="container">
 		<div class="header">
-			<h1>Photobomb</h1>
-			{% if user %}
-			<a href="/logout/{{user.id}}"><h3>{{user.username}}</h3></a>
-			{% endif %}
-		</div>
-		{% if photo.profilepic %}
-		<div class="profile_pic"><img src="{{photo.profilepic.url}}"></div>
-		{% endif %}
-		<div class="sidebar">
-				<img src="/static/photography/images/back_button2.png" class="back_button">			
+			<div class="header-title">
+				<h1>Photobomb</h1>
+			</div>
+			<div class="header-user">
+				{% if user %}
+				<h3>{{user.username}}</h3>
+				{% endif %}
+			</div>
 		</div>
 		<div class="albums">
 			<div class="sidebar2">
 				<div class="link">
 					<a href="createAlbum">New +</a>
 				</div>
-				<form action="/add_photo_dashboard" method="post" enctype="multipart/form-data">
-					{% csrf_token %}
-					<div class="input">
-						<input type="file" name="misc_photo">	
-					</div>
-					<div class="input">
-						<input  type="submit" name="submit" value="Upload">
-					</div>
-				</form>
 				<div class="options">
 					{% if user %}
 					<ul class="parent">
-						<li>Account
+						<li>Settings
 							<ul class="child">
-								<li><a href="/delete/{{user.id}}">Delete</a></li>
 								<li><a href="/logout/{{user.id}}">Logout</a></li>
-								<li><a href="/change_pic_page">Add/Change</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -56,15 +43,6 @@
 					<a href="/delete_album/{{album.id}}"><button class="album_button">Delete</button></a>
 				</div>					
 				{% endfor %}
-				<div class="misc_photos">
-					{% if photo.misc_image %}
-						{% for photo in photos %}					
-						<a href="/details/{{photo.id}}"><img src="{{photo.misc_image.url}}" class=image></a>
-						{% endfor %}
-					{% else %}
-						<p>No Image Avaliable</p>
-					{% endif %}
-				</div>
 		</div>		
 	</div>
 </body>
@@ -73,7 +51,9 @@
 		$('ul.parent > li').hover(function(){
 			$(this).find('ul.child').show(500);
 		}, function(){
-			$(this).find('ul.child').hide(500);
+			$('ul.parent > li').click(function(){
+				$('ul.child').hide(500)
+			})
 		});
 	});
 </script>

@@ -66,12 +66,15 @@ def login_process(request):
 		return redirect('/')
 
 def dashboard(request):
-	context = {
-		"user": User.objects.get(id=request.session['id']),
-		"albums": Album.objects.filter(user=request.session['id']),
-		"photos": Photo.objects.filter(_user=request.session['id'])
-	}
-	return render(request, "photography/dashboard.html", context)
+	if 'id' not in request.session:
+		return redirect('/')
+	else:
+		context = {
+			"user": User.objects.get(id=request.session['id']),
+			"albums": Album.objects.filter(user=request.session['id']),
+			"photos": Photo.objects.filter(_user=request.session['id'])
+		}
+		return render(request, "photography/dashboard.html", context)
 
 def delete_album(request, id):
 	Album.objects.filter(id=id).delete()
@@ -91,55 +94,50 @@ def createAlbum(request):
 	return redirect('/dashboard')
 
 def album_page(request, id):
-	album = Album.objects.get(id=id)
-	context = {
-		"photos": Photo.objects.filter(album=album)
-	}
-	return render(request, "photography/album.html", context)
+	if 'id' not in request.session:
+		return redirect('/')
+	else:
+		album = Album.objects.get(id=id)
+		context = {
+			"photos": Photo.objects.filter(album=album),
+			"album": Album.objects.get(id=id)
+		}
+		return render(request, "photography/album.html", context)
 
 
-def add_photo(request):
+def add_photo(request, id):
 	 _photo = request.FILES['photo']
-	 album = Album.objects.get(id=request.session['album_id'])
+	 album = Album.objects.get(id=id)
 	 photo = Photo.objects.create(image=_photo, album=album)
 	 print "Photo added"
-	 return redirect('/dashboard') 
-
-def add_photo_dashboard(request):
-    misc = request.FILES['misc_photo']
-    user = User.objects.get(id=request.session['id'])
-    misc_photo = Photo.objects.create(misc_image=misc, _user=user)
-    print "misc photo added"
-    return redirect('/dashboard')
+	 return redirect('/album_page/' + id) 
 
 def details(request, id):
-	context = {
-		"photo": Photo.objects.get(id=id)
-	}
-	return render(request, "photography/photoDetail.html", context)
+	if 'id' not in request.session:
+		return redirect('/')
+	else:
+		context = {
+			"photo": Photo.objects.get(id=id)
+		}
+		return render(request, "photography/photoDetail.html", context)
 
-def delete(request, id):
+def delete(request, id, album_id):
 	photo = Photo.objects.get(id=id)
 	photo.delete()
-	return redirect('/dashboard')
+	return redirect('/album_page/' + album_id)
 
 def logout(request, id):
 	request.session.clear()
-	return redirect('/home')
+	return redirect('/')
 
-def change_pic_page(request):
+def create_description(request, id):
+	description = request.POST['description']
 	user = User.objects.get(id=request.session['id'])
-	photo = Photo.objects.filter(_user=request.session['id'])
-	context = {
-		"user": user
-	}
-	return render(request, "photography/changePic.html", context)
-
-def upload_pic(request, id):
-	profile_pic = request.FILES['profile_pic']
-	user = User.objects.get(id=id)
-	profile_image = Photo.objects.create(profilepic=profile_pic, _user=user)
-	return redirect('/dashboard')
+	photo = Photo.objects.get(id=id)
+	photo.description = description
+	photo.save()
+	print "Description added"
+	return redirect('/details/' + id)
 
 
 
