@@ -44,7 +44,7 @@ def login_process(request):
 	if len(errors):
 		for tag, error in errors.iteritems():
 			messages.error(request, error)
-		return redirect('/home')
+		return redirect('/')
 
 	username = request.POST['username']
 	password = request.POST['password']

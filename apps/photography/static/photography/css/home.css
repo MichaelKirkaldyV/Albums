@@ -39,6 +39,21 @@ input {
 	display: inline-block;
 }
 
+ul.messages {
+	position: absolute;
+	left: 155px;
+	top:  7px;
+	
+}
+
+li.error {
+	color: red;
+	font-weight: bold;
+	list-style: none;
+	margin-top: 15px;
+	margin-left: 200px;
+}
+
 .register_button {
 	background-color: green;
 	color: white;
