@@ -2,6 +2,8 @@
 from __future__ import unicode_literals
 from django.db import models
 from django_thumbs.db.models import ImageWithThumbsField
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 
 class UserManager(models.Manager):
 	def validate_user(request, postData):
@@ -18,6 +20,15 @@ class UserManager(models.Manager):
 		#Validate username
 		if len(postData['username']) < 3:
 			errors['username'] = "Username name must be longer than 3 characters"
+
+		#Validate email
+		try:
+			validate_email(postData['email'])
+		except ValidationError:
+			errors['email'] = "This is not a valid email address"
+		else:
+			if User.objects.filter(email=postData['email']):
+				errors['email'] = "This email is already in use"
 
 		#Validate password
 		if len(postData['password']) < 8:
@@ -56,6 +67,7 @@ class User(models.Model):
 	firstname = models.CharField(max_length=50)
 	lastname = models.CharField(max_length=50)
 	username = models.CharField(max_length=50)
+	email = models.EmailField(max_length=20)
 	password = models.CharField(max_length=50)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)

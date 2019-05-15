@@ -28,8 +28,9 @@ def register_process(request):
 		lastname = request.POST['lastname']
 		username = request.POST['username']
 		password = request.POST['password']
+		email = request.POST['email']
 		hashed_pw = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-		User.objects.create(username=username, password=hashed_pw)
+		User.objects.create(firstname=firstname, lastname=lastname, email=email, username=username, password=hashed_pw)
 		user = User.objects.get(username=username)
 		request.session['id'] = user.id
 		print "User created!"
