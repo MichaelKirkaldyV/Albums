@@ -42,8 +42,11 @@ class UserManager(models.Manager):
 	def validate_user2(request, postData):
 		errors = {}
 
-		if len(postData['username']) < 3 or len(postData['username']) == 0:
-			errors['username'] = "Username must be longer than 3 characters, Username cannot be blank"
+		if len(postData['username']) < 3:
+			errors['username'] = "Username must be longer than 3 characters"
+
+		if len(postData['username']) == 0:
+			errors['username'] = "Username cannot be blank"
 
 		if len(postData['password']) < 8:
 			errors['password'] = "Password must be longer than 8 characters"
