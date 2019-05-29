@@ -21,7 +21,15 @@
 		<div class="albums">
 			<div class="sidebar2">
 				<div class="link">
-					<a href="createAlbum">New +</a>
+					<a href="createAlbum" class="create-album">New +</a>
+					<div class="form">
+						<form action="createAlbum" method="POST" class="album-create">
+							{% csrf_token %}
+							<label>Please enter an album name</label>
+							<input type="text" name="answer">
+							<input type="submit" name="submit">
+						</form>
+					</div>
 				</div>
 				<div class="options">
 					{% if user %}
@@ -55,6 +63,13 @@
 				$('ul.child').hide(500)
 			})
 		});
+		$('.form').hide()
+		$('.create-album').click(function(e){
+			e.preventDefault()
+			 $('.form').show();
+			 $('.album-create').onsubmit().hide()
+		})
+
 	});
 </script>
 </html>

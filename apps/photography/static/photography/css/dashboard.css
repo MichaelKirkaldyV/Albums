@@ -58,6 +58,17 @@ div.header h3 {
 	cursor: pointer;
 }
 
+.form {
+	display: none;
+	width: 200px;
+	height: 100px;
+	background-color: white;
+	position: absolute;
+    left: 500px;
+    box-shadow:  5px 10px 8px #888888;
+    padding: 15px;
+}
+
 .albums {
 	width: 92%;
 	height: 600px;

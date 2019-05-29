@@ -4,9 +4,6 @@ from django.shortcuts import render, HttpResponse, redirect
 from .models import *
 from django.contrib import messages
 import bcrypt
-from Tkinter import *
-import tkMessageBox
-import tkSimpleDialog
 
 
 def home(request):
@@ -83,15 +80,13 @@ def delete_album(request, id):
 
 #Tkinter uses a GUI to take a input from the client via dialog box.
 def createAlbum(request):
+	print request.POST['answer']
+	name = request.POST['answer']
 	user = User.objects.get(id=request.session['id'])
-	window = Tk()
-	answer = tkSimpleDialog.askstring("Input", "Please enter an album name.")
-	if answer: 
-		album = Album.objects.create(name=answer, user=user)
-		request.session['album_id'] = album.id
-		print request.session['album_id']
-		print "Album created", answer
-	window.mainloop()
+	album = Album.objects.create(name=name, user=user)
+	request.session['album_id'] = album.id
+	print request.session['album_id']
+	print "Album created"
 	return redirect('/dashboard')
 
 def album_page(request, id):
