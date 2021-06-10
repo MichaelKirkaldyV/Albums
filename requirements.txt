@@ -1,7 +1,7 @@
 bcrypt==3.1.4
 cffi==1.11.5
 click==6.7
-Django==1.11.9
+Django==2.2.24
 django-thumbs==0.4
 Flask==1.0.2
 itsdangerous==0.24
